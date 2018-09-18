@@ -1,14 +1,319 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-	<f:layout name="Default" />
-	<f:section name="content">
-    <h1>{petition.title}</h1>
-  <f:debug>{_all}</f:debug>
-    <p>{petition.count} / {petition.total}</p>
-    <f:form action="create" name="new" object="{new}">
-      <f:form.hidden property="petition" value="{petition.uid}" />
-      <f:form.textfield property="firstName" placeholder="firstname" />
-      <f:form.checkbox property="newsletter" value="1"/> <label for="">newsletter</label>
-      <f:form.submit class="btn btn-default" value="Jetzt unterschreiben!" />
-    </f:form>
-	</f:section>
+<f:layout name="Default"/>
+<f:section name="content">
+    <f:debug>{_all}</f:debug>
+    <div id="petition">
+        <div class="p-form">
+            <f:form action="create" name="new" object="{new}" id="form-petition">
+                <f:form.hidden property="petition" value="{petition.uid}"/>
+                <div class="step-1 step">
+                    <header>
+                        <img src="blank.gif" data-src="/dist/images/step1.png" width="249" height="31" class="lazy"/>
+                        <h2>Auf die Plätze, fertig, los!</h2>
+                        <h3>1. Formular ausfüllen</h3>
+                    </header>
+                    <div class="p-input select">
+                        <label for="p-anrede">* Anrede</label>
+                        <f:form.select property="title" id="p-anrede"
+                                       options="{0:'* Anrede', herr:'Herr', frau:'Frau'}"/>
+                    </div>
+                    <div class="p-input text">
+                        <label for="text-firstname">* Vorname</label>
+                        <f:form.textfield property="firstName" placeholder="* Vorname" id="text-firstname"
+                                          required="required"/>
+                    </div>
+                    <div class="p-input text">
+                        <label for="text-lastname">* Nachname</label>
+                        <f:form.textfield property="lastName" placeholder="* Nachname" id="text-lastname"
+                                          required="required"/>
+                    </div>
+                    <div class="p-input text">
+                        <label for="text-email">* E-Mail-Adresse</label>
+                        <f:form.textfield property="email" placeholder="* E-Mail-Adresse" id="text-email"
+                                          required="required" type="email"/>
+                    </div>
+                    <div class="flex-row">
+                        <div class="p-input select">
+                            <label for="p-state">* Bundesland</label>
+                            <f:form.select property="company" id="p-state"
+                                           options="{0:'* Bundesland', bgl:'Burgenland', ktn:'Kärnten', noe:'Niederösterreich', ooe:'Oberösterreich', sbg:'Salzburg', stmk:'Steiermark', tir:'Tirol', vbg:'Vorarlberg', wie:'Wien', and:'Anderes'}"/>
+                        </div>
+                        <div class="p-input select">
+                            <label for="p-country">* Land</label>
+                            <f:form.select property="country" id="p-country"
+                                           options="{0:'* Land', de:'Deutschland', fr:'Frankreich', it:'Italien', li:'Liechtenstein', at:'Oesterreich', ch:'Schweiz', slo:'Slowenien', and:'Anderes'}"/>
+                        </div>
+                    </div>
+                    <div class="p-input checkbox">
+                        <input type="checkbox" id="datenschutz" required>
+                        <label for="datenschutz">* Datenschutzerklärung, ipsum dolor sit amet, consectetur adipisicing
+                            elit, sed do eiusmod tempor incididunt ut et dolore.</label>
+                    </div>
+                    <div class="p-input checkbox">
+                        <f:form.checkbox property="newsletter" value="1" id="newsletter"/>
+                        <label for="newsletter">Ja, ich möchte per E-Mail über den Verlauf der Petition am Laufenden
+                            gehalten werden.</label>
+                    </div>
+                    <p class="mandatory">Alle Felder mit * sind Pflichtfelder.</p>
+                    <div class="text-center buttons">
+                        <a class="button" data-step="2" onclick="checkForm()">Jetzt unterschreiben!</a>
+                        <div class="social-media-bar">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={f:uri.page(pageUid: '1', absolute: '1')}"
+                               onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="facebook">
+                                <svg class="svg icon-facebook">
+                                    <use xlink:href="#icon-facebook"/>
+                                </svg>
+                            </a>
+                            <a href="https://plus.google.com/share?url={f:uri.page(pageUid: '1', absolute: '1')}"
+                               class="googleplus" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                                <svg class="svg icon-googleplus">
+                                    <use xlink:href="#icon-googleplus"/>
+                                </svg>
+                            </a>
+                            <a href="whatsapp://send?text={f:uri.page(pageUid: '1', absolute: '1')}" class="whatsapp">
+                                <svg class="svg icon-whatsapp">
+                                    <use xlink:href="#icon-whatsapp"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.xing.com/spi/shares/new?url={f:uri.page(pageUid: '1', absolute: '1')}"
+                               class="xing" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                                <svg class="svg icon-xing">
+                                    <use xlink:href="#icon-xing"/>
+                                </svg>
+                            </a>
+                            <a href="mailto:?subject=Unterstütze auch du!&body={f:uri.page(pageUid: '1', absolute: '1')}"
+                               class="email">
+                                <svg class="svg icon-mail">
+                                    <use xlink:href="#icon-mail"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <p>Sagen Sie es weiter!</p>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="legend">
+                            <span class="min">0</span>
+                            <span class="max">25.000</span>
+                        </div>
+                        <div class="bar" data-min="0" data-max="{petition.total}" data-count="{petition.count}">
+                            <div class="progress"></div>
+                            <div class="count">
+                                <svg class="svg icon-balken">
+                                    <use xlink:href="#icon-balken"/>
+                                </svg>
+                                <span class="num">{petition.count}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="step step-2">
+                    <header>
+                        <img src="blank.gif" data-src="/dist/images/step2.png" width="249" height="31" class="lazy"/>
+                        <h2>Bevor es weiter geht ...</h2>
+                        <h3>2. Mit Freunden teilen</h3>
+                        <p>
+                            <br/>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation eiusmod tempor iullamco.
+                        </p>
+                        <p>
+                            <strong>Wir sagen Danke!</strong>
+                        </p>
+                        <p>
+                            <a href="mailto:?subject=Unterstütze auch du!&body={f:uri.page(pageUid: '1', absolute: '1')}"
+                               class="button grey">
+                                <svg class="svg icon-mail-button">
+                                    <use xlink:href="#icon-mail-button"/>
+                                </svg>
+                                An Freunde senden
+                            </a>
+                        </p>
+                        <div class="social-media-bar">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={f:uri.page(pageUid: '1', absolute: '1')}"
+                               onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="facebook">
+                                <svg class="svg icon-facebook">
+                                    <use xlink:href="#icon-facebook"/>
+                                </svg>
+                            </a>
+                            <a href="https://plus.google.com/share?url={f:uri.page(pageUid: '1', absolute: '1')}"
+                               class="googleplus" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                                <svg class="svg icon-googleplus">
+                                    <use xlink:href="#icon-googleplus"/>
+                                </svg>
+                            </a>
+                            <a href="whatsapp://send?text={f:uri.page(pageUid: '1', absolute: '1')}" class="whatsapp">
+                                <svg class="svg icon-whatsapp">
+                                    <use xlink:href="#icon-whatsapp"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.xing.com/spi/shares/new?url={f:uri.page(pageUid: '1', absolute: '1')}"
+                               class="xing" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                                <svg class="svg icon-xing">
+                                    <use xlink:href="#icon-xing"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <p>Weitere Möglichkeiten zum Teilen</p>
+                        <p>
+                            <br/>
+                            <f:form.submit class="button" value="Weiter"/>
+                        </p>
+                    </header>
+                </div>
+            </f:form>
+        </div>
+        <div class="p-supporters">
+            <h2><strong class="count">23.456</strong> Unterstützer</h2>
+            <table class="supporter-list">
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+                <tr class="sl-item">
+                    <th>23.456</th>
+                    <td>Vorname, N.</td>
+                    <td>13. September 2018</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</f:section>
 </html>
