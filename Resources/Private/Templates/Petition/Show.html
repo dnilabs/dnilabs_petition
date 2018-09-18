@@ -2,7 +2,6 @@
 <f:layout name="Default"/>
 <f:section name="content">
     <f:debug>{_all}</f:debug>
-
     <div id="petition">
         <div class="p-form">
             <f:form action="create" name="new" object="{new}" id="form-petition">
@@ -15,7 +14,7 @@
                     </header>
                     <div class="p-input select">
                         <label for="p-anrede">* Anrede</label>
-                        <f:form.select property="salutation" id="p-anrede"
+                        <f:form.select property="title" id="p-anrede"
                                        options="{0:'* Anrede', herr:'Herr', frau:'Frau'}"/>
                     </div>
                     <div class="p-input text">
@@ -36,8 +35,8 @@
                     <div class="flex-row">
                         <div class="p-input select">
                             <label for="p-state">* Bundesland</label>
-                            <f:form.select property="state" id="p-state"
-                                           options="{0:'* Bundesand', bgl:'Burgenland', ktn:'Kärnten', noe:'Niederösterreich', ooe:'Oberösterreich', sbg:'Salzburg', stmk:'Steiermark', tir:'Tirol', vbg:'Vorarlberg', wie:'Wien', and:'Anderes'}"/>
+                            <f:form.select property="company" id="p-state"
+                                           options="{0:'* Bundesland', bgl:'Burgenland', ktn:'Kärnten', noe:'Niederösterreich', ooe:'Oberösterreich', sbg:'Salzburg', stmk:'Steiermark', tir:'Tirol', vbg:'Vorarlberg', wie:'Wien', and:'Anderes'}"/>
                         </div>
                         <div class="p-input select">
                             <label for="p-country">* Land</label>
