@@ -9,13 +9,26 @@ call_user_func(
       'Dnilabs.DnilabsPetition',
       'Petition',
       [
-        'Petition' => 'show, create'
+        'Petition' => 'show, create, list'
       ],
       // non-cacheable actions
       [
-        'Petition' => 'show, create'
+        'Petition' => 'show, create, list'
       ]
     );
+
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+      'Dnilabs.DnilabsPetition',
+      'Activation',
+      [
+        'Petition' => 'activation'
+      ],
+      // non-cacheable actions
+      [
+        'Petition' => 'activation'
+      ]
+    );
+
 
     $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
 

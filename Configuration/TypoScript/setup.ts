@@ -1,5 +1,5 @@
 
-plugin.tx_dnilabspetition_petition {
+plugin.tx_dnilabspetition {
     view {
         templateRootPaths.0 = EXT:dnilabs_petition/Resources/Private/Templates/
         templateRootPaths.1 = {$plugin.tx_dnilabspetition_petition.view.templateRootPath}
@@ -14,6 +14,8 @@ plugin.tx_dnilabspetition_petition {
     }
     settings {
         fegroup = {$plugin.tx_dnilabspetition_petition.settings.fegroup}
+        success1 = {$plugin.tx_dnilabspetition_petition.settings.success1}
+        success2 = {$plugin.tx_dnilabspetition_petition.settings.success2}
     }
     features {
         #skipDefaultArguments = 1

@@ -19,6 +19,10 @@ class Participant extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
    * @var \DateTime
    */
   protected $date = null;
+  /**
+   * @var bool
+   */
+  protected $disable = true;
 
   /**
    * newsletter
@@ -74,6 +78,23 @@ class Participant extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
   public function setDate(\DateTime $date)
   {
     $this->date = $date;
+  }
+
+  /**
+   * @return bool $disable
+   */
+  public function getDisable()
+  {
+    return $this->disable;
+  }
+
+  /**
+   * @param bool $disable
+   * @return void
+   */
+  public function setDisable($disable)
+  {
+    $this->disable = $disable;
   }
 
   /**

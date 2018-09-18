@@ -5,6 +5,12 @@ use \Dnilabs\DnilabsPetition\Domain\Model\Participant;
 class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
   /**
+   * @var \Dnilabs\DnilabsPetition\Service\EmailService
+   * @inject
+   */
+  protected $emailService = NULL;
+
+  /**
    * @var \Dnilabs\DnilabsPetition\Domain\Repository\ParticipantRepository
    * @inject
    */
@@ -34,12 +40,25 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
   /**
    * @return void
    */
+  public function activationAction() {
+    $token = GU::_GET('token');
+    if (!$token) return "kein token";
+    $user = $this->participantRepository->findOneByUsername($token);
+    if (!$user) return "token nicht gefunden";
+    if (!$user->getDisable()) return "bereits aktiviert";
+    $this->view->assign("participant", $user);
+    $user->setDisable(false);
+    $this->participantRepository->update($user);
+  }
+
+  /**
+   * @return void
+   */
   public function listAction() {
     $page = intval(GU::_GET('page'));
     if ($page<=0) {
       $page = 1;
     }
-
     $pet = $this->settings["petition"];
     $limit = $this->settings["limit"];
     $pets = $this->petitionRepository->findPage($page, $limit, $pet);
@@ -55,20 +74,38 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     $fegroup = $this->settings["fegroup"];
     $usergroup = $this->frontendUserGroupRepository->findByUid($fegroup);
     if (!$usergroup) return "no usergroup";
-    $new->addUsergroup($usergroup);
 
+    // set attributes
+    $new->addUsergroup($usergroup);
+    $new->setDisable(true);
+    $new->setDate(new \Datetime);
     $new->setUsername(md5(time()));
     $new->setPassword("8oHb^2qBjE/z),+L8oHb^2qBjE/z),+L");
 
+    // count up
     $pet =  $new->getPetition();
     $nr = $pet->getCount() + 1;
     $pet->setCount($nr);
     $new->setNumber($nr);
-    $new->setDate(new \Datetime);
 
+    // save
     $this->participantRepository->add($new);
     $this->petitionRepository->update($pet);
-    return "success";
+
+    // send activation email
+    $to = $new->getEmail();
+    $from = $this->settings["emailfrom"];
+    $subject = $this->settings["emailsubject"];
+    $this->emailService->sendTemplateEmail($to, $from, $subject, "Activation", [
+      "confirmurl" => $this->settings["baseurl"],
+      "confirmpid" => $this->settings["success2"],
+      "token" => $new->getUsername()
+    ]);
+
+    // redirect to success1
+    $pageUid = $this->settings['success1'];
+    $uri = $this->uriBuilder->setTargetPageUid($pageUid)->build();
+    $this->redirectToURI($uri);
 
   }
 }

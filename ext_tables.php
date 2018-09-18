@@ -10,6 +10,11 @@ call_user_func(
       'Petition',
       'Petition'
     );
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+      'Dnilabs.DnilabsPetition',
+      'Activation',
+      'Activation'
+    );
 
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('dnilabs_petition', 'Configuration/TypoScript', 'dnilabs petition');
 
