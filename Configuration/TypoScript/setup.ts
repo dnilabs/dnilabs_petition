@@ -26,3 +26,18 @@ plugin.tx_dnilabspetition_petition {
         #callDefaultActionIfActionCantBeResolved = 1
     }
 }
+
+petitionpagebrowser = PAGE
+petitionpagebrowser {
+  typeNum = 666
+  10 < tt_content.list.20.dnilabspetition_petition
+  config {
+   disableAllHeaderCode = 1
+   additionalHeaders = Content-type:text/html
+   xhtml_cleaning = 0
+   admPanel = 0
+   debug = 0
+   no_cache = 1
+  }
+}
+
