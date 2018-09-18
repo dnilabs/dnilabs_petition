@@ -1,0 +1,17 @@
+config.tx_extbase {
+  persistence {
+    classes {
+      TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
+        subclasses {
+          Dnilabs\DnilabsPetition\Domain\Model\Participant = Dnilabs\DnilabsPetition\Domain\Model\Participant
+        }
+      }
+      Dnilabs\DnilabsPetition\Domain\Model\Participant {
+        mapping {
+          tableName = fe_users
+          recordType = Dnilabs\DnilabsPetition\Domain\Model\Participant
+        }
+      }
+    }
+  }
+}

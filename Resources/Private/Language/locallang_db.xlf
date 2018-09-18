@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-18T14:10:01Z" product-name="dnilabs_petition">
+		<header/>
+		<body>
+			<trans-unit id="tx_dnilabspetition_domain_model_petition">
+				<source>Petition</source>
+			</trans-unit>
+			<trans-unit id="tx_dnilabspetition_domain_model_petition.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_dnilabspetition_domain_model_petition.total">
+				<source>Total</source>
+			</trans-unit>
+			<trans-unit id="tx_dnilabspetition_domain_model_petition.count">
+				<source>Count</source>
+			</trans-unit>
+			<trans-unit id="tx_dnilabspetition_domain_model_participant">
+				<source>Participant</source>
+			</trans-unit>
+			<trans-unit id="tx_dnilabspetition_domain_model_participant.number">
+				<source>Number</source>
+			</trans-unit>
+			<trans-unit id="tx_dnilabspetition_domain_model_participant.date">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="tx_dnilabspetition_domain_model_participant.newsletter">
+				<source>Newsletter</source>
+			</trans-unit>
+			<trans-unit id="tx_dnilabspetition_domain_model_participant.petition">
+				<source>Petition</source>
+			</trans-unit>
+			<trans-unit id="tx_dnilabs_petition_petition.name">
+				<source>Petition</source>
+			</trans-unit>
+			<trans-unit id="tx_dnilabs_petition_petition.description">
+				<source></source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

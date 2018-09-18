@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-18T14:10:01Z" product-name="dnilabs_petition">
+		<header/>
+		<body>
+			<trans-unit id="title.description">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="total.description">
+				<source>total</source>
+			</trans-unit>
+			<trans-unit id="count.description">
+				<source>count</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
