@@ -9,11 +9,11 @@ call_user_func(
       'Dnilabs.DnilabsPetition',
       'Petition',
       [
-        'Petition' => 'show'
+        'Petition' => 'show, create'
       ],
       // non-cacheable actions
       [
-        'Petition' => ''
+        'Petition' => 'show, create'
       ]
     );
 

@@ -1,0 +1,25 @@
+<T3DataStructure>
+  <sheets>
+    <sDEF>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>Optionen</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+          <settings.petition>
+            <TCEforms>
+              <label>Petition</label>
+              <config>
+                <type>select</type>
+                <renderType>selectSingle</renderType>
+                <foreign_table>tx_dnilabspetition_domain_model_petition</foreign_table>
+                <maxitems>1</maxitems>
+              </config>
+            </TCEforms>
+          </settings.petition>
+        </el>
+      </ROOT>
+    </sDEF>
+  </sheets>
+</T3DataStructure>

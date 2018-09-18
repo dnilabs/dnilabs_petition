@@ -12,6 +12,9 @@ plugin.tx_dnilabspetition_petition {
         storagePid = {$plugin.tx_dnilabspetition_petition.persistence.storagePid}
         #recursive = 1
     }
+    settings {
+        fegroup = {$plugin.tx_dnilabspetition_petition.settings.fegroup}
+    }
     features {
         #skipDefaultArguments = 1
         # if set to 1, the enable fields are ignored in BE context

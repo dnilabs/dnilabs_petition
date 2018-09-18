@@ -12,4 +12,8 @@ plugin.tx_dnilabspetition_petition {
         # cat=plugin.tx_dnilabspetition_petition//a; type=string; label=Default storage PID
         storagePid =
     }
+    settings {
+        # cat=plugin.tx_dnilabspetition_petition//b; type=string; label=Frontend Usergroup ID
+        fegroup = 1
+    }
 }
