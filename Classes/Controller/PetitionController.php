@@ -41,9 +41,10 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
    * @return void
    */
   public function activationAction() {
-    $token = GU::_GET('token');
+    $token = GU::_GET('uniquehash');
     if (!$token) return "kein token";
     $user = $this->participantRepository->findOneByUsername($token);
+    /* echo $user->getUsername(); */
     if (!$user) return "token nicht gefunden";
     if (!$user->getDisable()) return "bereits aktiviert";
     $this->view->assign("participant", $user);
@@ -93,8 +94,8 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     $this->petitionRepository->update($pet);
 
     // send activation email
-    $to = $new->getEmail();
-    $from = $this->settings["emailfrom"];
+    $to = [$new->getEmail()];
+    $from = [$this->settings["emailfrom"]];
     $subject = $this->settings["emailsubject"];
     $this->emailService->sendTemplateEmail($to, $from, $subject, "Activation", [
       "confirmurl" => $this->settings["baseurl"],

@@ -7,6 +7,10 @@ class Participant extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
     parent::__construct();
   }
   /**
+   * @var string
+   */
+  protected $username = '';
+  /**
    * number
    *
    * @var string
@@ -37,6 +41,24 @@ class Participant extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
    * @var \Dnilabs\DnilabsPetition\Domain\Model\Petition
    */
   protected $petition = null;
+  /**
+   * @return string $username
+   */
+  public function getUsername()
+  {
+    return $this->username;
+  }
+
+  /**
+   * Sets the username
+   *
+   * @param string $username
+   * @return void
+   */
+  public function setUsername($username)
+  {
+    $this->username = $username;
+  }
 
   /**
    * Returns the number
