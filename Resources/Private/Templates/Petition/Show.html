@@ -148,7 +148,7 @@
                             </a>
                             <a href="whatsapp://send?text={f:uri.page(pageUid: '1', absolute: '1')}" class="whatsapp">
                                 <svg class="svg icon-whatsapp">
-                                     <use xlink:href="#icon-whatsapp"/>
+                                    <use xlink:href="#icon-whatsapp"/>
                                 </svg>
                             </a>
                             <a href="https://www.xing.com/spi/shares/new?url={f:uri.page(pageUid: '1', absolute: '1')}"
@@ -171,13 +171,18 @@
         <div class="p-supporters">
             <h2><strong class="count">{petition.count}</strong> Unterstützer</h2>
             <table class="supporter-list">
+                <f:for each="{supporters}" as="supporter">
                 <tr class="sl-item">
-                    <th>{petition.count}</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
+                    <th>{supporter.data.uid}</th>
+                    <td>{supporter.data.firstName}</td>
+                    <td>{supporter.data.date}</td>
                 </tr>
+                </f:for>
             </table>
         </div>
+        <script>
+            var url = {f:uri.action(action: 'list', pageType: '666', absolute: '1') -> f:format.raw()};
+        </script>
     </div>
 </f:section>
 </html>
