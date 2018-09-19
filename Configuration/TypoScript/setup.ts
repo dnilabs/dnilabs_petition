@@ -19,6 +19,7 @@ plugin.tx_dnilabspetition {
         baseurl = {$plugin.tx_dnilabspetition.settings.baseurl}
         emailfrom = {$plugin.tx_dnilabspetition.settings.emailfrom}
         emailsubject = {$plugin.tx_dnilabspetition.settings.emailsubject}
+        limit = {$plugin.tx_dnilabspetition.settings.limit}
     }
     features {
         #skipDefaultArguments = 1

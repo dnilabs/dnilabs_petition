@@ -24,5 +24,7 @@ plugin.tx_dnilabspetition {
         emailfrom =
         # cat=plugin.tx_dnilabspetition//g; type=string; label=Email Subject
         emailsubject =
+        # cat=plugin.tx_dnilabspetition//g; type=string; label=Pagebrowser Limit
+        limit = 30
     }
 }
