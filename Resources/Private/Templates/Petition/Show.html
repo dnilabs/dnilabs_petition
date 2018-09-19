@@ -1,7 +1,6 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Default"/>
 <f:section name="content">
-    <f:debug>{_all}</f:debug>
     <div id="petition">
         <div class="p-form">
             <f:form action="create" name="new" object="{new}" id="form-petition">
@@ -149,7 +148,7 @@
                             </a>
                             <a href="whatsapp://send?text={f:uri.page(pageUid: '1', absolute: '1')}" class="whatsapp">
                                 <svg class="svg icon-whatsapp">
-                                    <use xlink:href="#icon-whatsapp"/>
+                                     <use xlink:href="#icon-whatsapp"/>
                                 </svg>
                             </a>
                             <a href="https://www.xing.com/spi/shares/new?url={f:uri.page(pageUid: '1', absolute: '1')}"
@@ -170,145 +169,10 @@
             </f:form>
         </div>
         <div class="p-supporters">
-            <h2><strong class="count">23.456</strong> Unterstützer</h2>
+            <h2><strong class="count">{petition.count}</strong> Unterstützer</h2>
             <table class="supporter-list">
                 <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
-                    <td>Vorname, N.</td>
-                    <td>13. September 2018</td>
-                </tr>
-                <tr class="sl-item">
-                    <th>23.456</th>
+                    <th>{petition.count}</th>
                     <td>Vorname, N.</td>
                     <td>13. September 2018</td>
                 </tr>
