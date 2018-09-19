@@ -19,6 +19,7 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
     public function findPage($page, $limit, $pet)
     {
+        $limit = (int)$limit;
         $query = $this->createQuery();
         $query->matching(
             $query->equals("petition", $pet)
