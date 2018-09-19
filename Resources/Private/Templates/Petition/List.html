@@ -4,7 +4,7 @@
     <table class="supporter-list">
         <f:for each="{petitionen}" as="supporter" reverse="true" iteration="i">
             <tr class="sl-item">
-                <th>{i.cycle}</th>
+                <th data-index="{i.index}" data-total="{i.total}" class="index"></th>
                 <td>{supporter.firstName} <f:format.crop maxCharacters="1" append=".">{supporter.lastName}</f:format.crop></td>
                 <td><f:format.date format="d.m.Y">{supporter.date}</f:format.date></td>
             </tr>
