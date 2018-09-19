@@ -1,4 +1,4 @@
-
+plugin.tx_dnilabspetition {
     view {
         # cat=plugin.tx_dnilabspetition/file; type=string; label=Path to template root (FE)
         templateRootPath = EXT:dnilabs/Resources/Private/Templates/
