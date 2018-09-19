@@ -8,8 +8,7 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronten
         'number' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
     );
 
-    public function findMyUser($username)
-    {
+    public function findMyUser($username) {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
         $query->matching(
@@ -18,23 +17,22 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronten
         return $query->setLimit(1)->execute()->getFirst();
     }
 
-    public function findOneByEmail($email)
-    {
+    public function checkEmail($email) {
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+          return false;
+        }
+
         $query = $this->createQuery();
+        $query->getQuerySettings()->setIgnoreEnableFields(true);
         $query->matching(
             $query->equals("email", $email)
         );
-        return $query->setLimit(1)->execute()->getFirst();
+        $cnt = $query->setLimit(1)->execute()->count();
+        return $cnt > 0;
     }
 
-    public function findSorted() {
-        $query = $this->createQuery();
-        $query->setOrderings(array("date" => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
-        return $query->execute();
-    }
-
-    public function findPage($page, $limit, $pet)
-    {
+    public function findPage($page, $limit, $pet) {
         $query = $this->createQuery();
         $query->matching(
             $query->equals("petition", $pet)

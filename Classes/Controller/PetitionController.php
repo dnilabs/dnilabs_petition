@@ -40,8 +40,6 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $uid = $this->settings["petition"];
         $this->view->assign('petition', $this->petitionRepository->findByUid($uid));
         $this->view->assign('new', new Participant);
-        $this->view->assign('counter', $this->participantRepository->findSorted()->count());
-
         //assign arguments
         $this->view->assign('arguments', $this->request->getArguments());
     }
@@ -53,7 +51,7 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     {
         $token = GU::_GET('uniquehash');
         if (!$token) return "kein token";
-        $user = $this->participantRepository->findMyUser($token);
+        $user = $this->participantRepository->findOneByUsername($token);
         if (!$user) return "token nicht gefunden";
         if (!$user->getDisable()) return "bereits aktiviert";
         $this->view->assign("participant", $user);
@@ -72,8 +70,7 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         }
         $pet = $this->settings["petition"];
         $limit = $this->settings["limit"];
-        //$pets = $this->participantRepository->findPage($page, $limit, $pet);
-        $pets = $this->participantRepository->findSorted();
+        $pets = $this->participantRepositoryRepository->findPage($page, $limit, $pet);
         $this->view->assign('petitionen', $pets);
     }
 
@@ -83,6 +80,11 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function createAction(\Dnilabs\DnilabsPetition\Domain\Model\Participant $new)
     {
+        //check if email is already in use
+        if ($this->participantRepository->checkEmail($new->getEmail())) {
+            //redirect to homepage
+            return $this->redirect('show', null, null, ['duplicateemail' => true]);
+        }
 
         $fegroup = $this->settings["fegroup"];
         $usergroup = $this->frontendUserGroupRepository->findByUid($fegroup);
@@ -101,30 +103,24 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $pet->setCount($nr);
         $new->setNumber($nr);
 
-        //check if email is already in use
-        if ($this->participantRepository->findOneByEmail($new->getEmail())) {
-            //redirect to homepage
-            $this->redirect('show', null, null, ['duplicateemail' => true]);
-        } else {
-            // save
-            $this->participantRepository->add($new);
-            $this->petitionRepository->update($pet);
+        // save
+        $this->participantRepository->add($new);
+        $this->petitionRepository->update($pet);
 
-            // send activation email
-            $to = [$new->getEmail()];
-            $from = [$this->settings["emailfrom"]];
-            $subject = $this->settings["emailsubject"];
-            $this->emailService->sendTemplateEmail($to, $from, $subject, "Activation", [
-                "confirmurl" => $this->settings["baseurl"],
-                "confirmpid" => $this->settings["success2"],
-                "token"      => $new->getUsername()
-            ]);
+        // send activation email
+        $to = [$new->getEmail()];
+        $from = [$this->settings["emailfrom"]];
+        $subject = $this->settings["emailsubject"];
+        $this->emailService->sendTemplateEmail($to, $from, $subject, "Activation", [
+            "confirmurl" => $this->settings["baseurl"],
+            "confirmpid" => $this->settings["success2"],
+            "token"      => $new->getUsername()
+        ]);
 
-            // redirect to success1
-            $pageUid = $this->settings['success1'];
-            $uri = $this->uriBuilder->setTargetPageUid($pageUid)->build();
-            $this->redirectToURI($uri);
-        }
+        // redirect to success1
+        $pageUid = $this->settings['success1'];
+        $uri = $this->uriBuilder->setTargetPageUid($pageUid)->build();
+        $this->redirectToURI($uri);
 
     }
 }
