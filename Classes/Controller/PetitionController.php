@@ -80,7 +80,8 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         }
         $pet = $this->settings["petition"];
         $limit = $this->settings["limit"];
-        $pets = $this->participantRepositoryRepository->findPage($page, $limit, $pet);
+        /* $pets = $this->participantRepositoryRepository->findPage($page, $limit, $pet); */
+        $pets = $this->participantRepositoryRepository->findAll();
         $this->view->assign('petitionen', $pets);
     }
 
