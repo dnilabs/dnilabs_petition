@@ -17,9 +17,14 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         return $query->setLimit(1)->execute()->getFirst();
     }
 
+    public function findSorted() {
+        $query = $this->createQuery();
+        $query->setOrderings(array("date" => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
+        return $query->execute();
+    }
+
     public function findPage($page, $limit, $pet)
     {
-        $limit = (int)$limit;
         $query = $this->createQuery();
         $query->matching(
             $query->equals("petition", $pet)
