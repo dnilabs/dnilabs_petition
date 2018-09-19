@@ -17,6 +17,15 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         return $query->setLimit(1)->execute()->getFirst();
     }
 
+    public function findOneByEmail($email)
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->equals("email", $email)
+        );
+        return $query->setLimit(1)->execute()->getFirst();
+    }
+
     public function findSorted() {
         $query = $this->createQuery();
         $query->setOrderings(array("date" => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));

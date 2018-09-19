@@ -6,7 +6,16 @@
             <f:form action="create" name="new" object="{new}" id="form-petition">
                 <f:form.hidden property="petition" value="{petition.uid}"/>
                 <div class="step-1 step">
-                    <div class="errors"></div>
+                    <f:if condition="{arguments.duplicateemail} == 1">
+                        <f:then>
+                            <div class="errors duplicateemail">
+                                <p>Ihre E-Mail Adresse wurde bereits verwendet!</p>
+                            </div>
+                        </f:then>
+                        <f:else>
+                            <div class="errors"></div>
+                        </f:else>
+                    </f:if>
                     <header>
                         <img src="blank.gif" data-src="/dist/images/step1.png" width="249" height="31" class="lazy"/>
                         <h2>Auf die Plätze, fertig, los!</h2>
@@ -15,7 +24,8 @@
                     <div class="p-input select">
                         <label for="p-anrede">* Anrede</label>
                         <f:form.select property="title" id="p-anrede"
-                                       options="{0:'* Anrede', herr:'Herr', frau:'Frau'}" additionalAttributes="{required:'required'}"/>
+                                       options="{0:'* Anrede', herr:'Herr', frau:'Frau'}"
+                                       additionalAttributes="{required:'required'}"/>
                     </div>
                     <div class="p-input text">
                         <label for="text-firstname">* Vorname</label>
@@ -38,7 +48,7 @@
                                        options="{0:'* Bundesland', bgl:'Burgenland', ktn:'Kärnten', noe:'Niederösterreich', ooe:'Oberösterreich', sbg:'Salzburg', stmk:'Steiermark', tir:'Tirol', vbg:'Vorarlberg', wie:'Wien', and:'Anderes'}"/>
                     </div>
                     <div class="recaptcha">
-                    <div class="g-recaptcha" data-sitekey="6LdyEXEUAAAAABN4ZgfZuWQwWzcwB6W_Bch4h1Sw"></div>
+                        <div class="g-recaptcha" data-sitekey="6LdyEXEUAAAAABN4ZgfZuWQwWzcwB6W_Bch4h1Sw"></div>
                     </div>
                     <div class="p-input checkbox">
                         <input type="checkbox" id="datenschutz" required>
@@ -76,8 +86,14 @@
                                 </svg>
                             </a>
                             <a href="https://web.whatsapp.com/send?text={f:uri.page(pageUid: '1', absolute: '1')}"
-                               class="whatsapp" onclick="javascript:window.open(this.href,
+                               class="whatsapp desktop" onclick="javascript:window.open(this.href,
   '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                                <svg class="svg icon-whatsapp">
+                                    <use xlink:href="#icon-whatsapp"/>
+                                </svg>
+                            </a>
+                            <a href="whatsapp://send?text={f:uri.page(pageUid: '1', absolute: '1')}"
+                               class="whatsapp mobile">
                                 <svg class="svg icon-whatsapp">
                                     <use xlink:href="#icon-whatsapp"/>
                                 </svg>
@@ -160,8 +176,14 @@
                                 </svg>
                             </a>
                             <a href="https://web.whatsapp.com/send?text={f:uri.page(pageUid: '1', absolute: '1')}"
-                               class="whatsapp" onclick="javascript:window.open(this.href,
+                               class="whatsapp desktop" onclick="javascript:window.open(this.href,
   '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                                <svg class="svg icon-whatsapp">
+                                    <use xlink:href="#icon-whatsapp"/>
+                                </svg>
+                            </a>
+                            <a href="whatsapp://send?text={f:uri.page(pageUid: '1', absolute: '1')}"
+                               class="whatsapp mobile" >
                                 <svg class="svg icon-whatsapp">
                                     <use xlink:href="#icon-whatsapp"/>
                                 </svg>

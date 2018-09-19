@@ -40,7 +40,10 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $uid = $this->settings["petition"];
         $this->view->assign('petition', $this->petitionRepository->findByUid($uid));
         $this->view->assign('new', new Participant);
-        $this->view->assign('counter',$this->participantRepository->findSorted()->count());
+        $this->view->assign('counter', $this->participantRepository->findSorted()->count());
+
+        //assign arguments
+        $this->view->assign('arguments', $this->request->getArguments());
     }
 
     /**
@@ -99,24 +102,30 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $pet->setCount($nr);
         $new->setNumber($nr);
 
-        // save
-        $this->participantRepository->add($new);
-        $this->petitionRepository->update($pet);
+        //check if email is already in use
+        if ($this->participantRepository->findOneByEmail($new->getEmail())) {
+            //redirect to homepage
+            $this->redirect('show', null, null, ['duplicateemail' => true]);
+        } else {
+            // save
+            $this->participantRepository->add($new);
+            $this->petitionRepository->update($pet);
 
-        // send activation email
-        $to = [$new->getEmail()];
-        $from = [$this->settings["emailfrom"]];
-        $subject = $this->settings["emailsubject"];
-        $this->emailService->sendTemplateEmail($to, $from, $subject, "Activation", [
-            "confirmurl" => $this->settings["baseurl"],
-            "confirmpid" => $this->settings["success2"],
-            "token"      => $new->getUsername()
-        ]);
+            // send activation email
+            $to = [$new->getEmail()];
+            $from = [$this->settings["emailfrom"]];
+            $subject = $this->settings["emailsubject"];
+            $this->emailService->sendTemplateEmail($to, $from, $subject, "Activation", [
+                "confirmurl" => $this->settings["baseurl"],
+                "confirmpid" => $this->settings["success2"],
+                "token"      => $new->getUsername()
+            ]);
 
-        // redirect to success1
-        $pageUid = $this->settings['success1'];
-        $uri = $this->uriBuilder->setTargetPageUid($pageUid)->build();
-        $this->redirectToURI($uri);
+            // redirect to success1
+            $pageUid = $this->settings['success1'];
+            $uri = $this->uriBuilder->setTargetPageUid($pageUid)->build();
+            $this->redirectToURI($uri);
+        }
 
     }
 }
