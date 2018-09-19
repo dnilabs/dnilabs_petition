@@ -6,6 +6,16 @@
             <f:form action="create" name="new" object="{new}" id="form-petition">
                 <f:form.hidden property="petition" value="{petition.uid}"/>
                 <div class="step-1 step">
+                    <f:if condition="{arguments.duplicateemail} == 1">
+                        <f:then>
+                            <div class="errors duplicateemail">
+                                <p>Ihre E-Mail Adresse wurde bereits verwendet!</p>
+                            </div>
+                        </f:then>
+                        <f:else>
+                            <div class="errors"></div>
+                        </f:else>
+                    </f:if>
                     <header>
                         <img src="blank.gif" data-src="/dist/images/step1.png" width="249" height="31" class="lazy"/>
                         <h2>Auf die Plätze, fertig, los!</h2>
@@ -14,7 +24,8 @@
                     <div class="p-input select">
                         <label for="p-anrede">* Anrede</label>
                         <f:form.select property="title" id="p-anrede"
-                                       options="{0:'* Anrede', herr:'Herr', frau:'Frau'}"/>
+                                       options="{0:'* Anrede', herr:'Herr', frau:'Frau'}"
+                                       additionalAttributes="{required:'required'}"/>
                     </div>
                     <div class="p-input text">
                         <label for="text-firstname">* Vorname</label>
@@ -31,17 +42,13 @@
                         <f:form.textfield property="email" placeholder="* E-Mail-Adresse" id="text-email"
                                           required="required" type="email"/>
                     </div>
-                    <div class="flex-row">
-                        <div class="p-input select">
-                            <label for="p-state">* Bundesland</label>
-                            <f:form.select property="company" id="p-state"
-                                           options="{0:'* Bundesland', bgl:'Burgenland', ktn:'Kärnten', noe:'Niederösterreich', ooe:'Oberösterreich', sbg:'Salzburg', stmk:'Steiermark', tir:'Tirol', vbg:'Vorarlberg', wie:'Wien', and:'Anderes'}"/>
-                        </div>
-                        <div class="p-input select">
-                            <label for="p-country">* Land</label>
-                            <f:form.select property="country" id="p-country"
-                                           options="{0:'* Land', de:'Deutschland', fr:'Frankreich', it:'Italien', li:'Liechtenstein', at:'Oesterreich', ch:'Schweiz', slo:'Slowenien', and:'Anderes'}"/>
-                        </div>
+                    <div class="p-input select">
+                        <label for="p-state">* Bundesland</label>
+                        <f:form.select property="country" id="p-state" additionalAttributes="{required:'required'}"
+                                       options="{0:'* Bundesland', bgl:'Burgenland', ktn:'Kärnten', noe:'Niederösterreich', ooe:'Oberösterreich', sbg:'Salzburg', stmk:'Steiermark', tir:'Tirol', vbg:'Vorarlberg', wie:'Wien', and:'Anderes'}"/>
+                    </div>
+                    <div class="recaptcha">
+                        <div class="g-recaptcha" data-sitekey="6LdyEXEUAAAAABN4ZgfZuWQwWzcwB6W_Bch4h1Sw"></div>
                     </div>
                     <div class="p-input checkbox">
                         <input type="checkbox" id="datenschutz" required>
@@ -64,6 +71,13 @@
                                     <use xlink:href="#icon-facebook"/>
                                 </svg>
                             </a>
+                            <a href="https://twitter.com/intent/tweet?text={f:uri.page(pageUid: '1', absolute: '1')}"
+                               onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="twitter">
+                                <svg class="svg icon-twitter">
+                                    <use xlink:href="#icon-twitter"/>
+                                </svg>
+                            </a>
                             <a href="https://plus.google.com/share?url={f:uri.page(pageUid: '1', absolute: '1')}"
                                class="googleplus" onclick="javascript:window.open(this.href,
   '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
@@ -71,7 +85,15 @@
                                     <use xlink:href="#icon-googleplus"/>
                                 </svg>
                             </a>
-                            <a href="whatsapp://send?text={f:uri.page(pageUid: '1', absolute: '1')}" class="whatsapp">
+                            <a href="https://web.whatsapp.com/send?text={f:uri.page(pageUid: '1', absolute: '1')}"
+                               class="whatsapp desktop" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                                <svg class="svg icon-whatsapp">
+                                    <use xlink:href="#icon-whatsapp"/>
+                                </svg>
+                            </a>
+                            <a href="whatsapp://send?text={f:uri.page(pageUid: '1', absolute: '1')}"
+                               class="whatsapp mobile">
                                 <svg class="svg icon-whatsapp">
                                     <use xlink:href="#icon-whatsapp"/>
                                 </svg>
@@ -83,7 +105,7 @@
                                     <use xlink:href="#icon-xing"/>
                                 </svg>
                             </a>
-                            <a href="mailto:?subject=Unterstütze auch du!&body={f:uri.page(pageUid: '1', absolute: '1')}"
+                            <a href="mailto:?subject=Ich bitte um IHRE Unterstützung: TAXFREE -  Hände weg vom Sportverein!&body={f:uri.page(pageUid: '1', absolute: '1')}"
                                class="email">
                                 <svg class="svg icon-mail">
                                     <use xlink:href="#icon-mail"/>
@@ -92,18 +114,18 @@
                         </div>
                         <p>Sagen Sie es weiter!</p>
                     </div>
-                    <div class="progress-bar">
+                    <div class="progress-bar" id="progressbar">
                         <div class="legend">
                             <span class="min">0</span>
                             <span class="max">25.000</span>
                         </div>
-                        <div class="bar" data-min="0" data-max="{petition.total}" data-count="{petition.count}">
+                        <div class="bar" data-min="0" data-max="{petition.total}" data-count="{counter}">
                             <div class="progress"></div>
                             <div class="count">
                                 <svg class="svg icon-balken">
                                     <use xlink:href="#icon-balken"/>
                                 </svg>
-                                <span class="num">{petition.count}</span>
+                                <span class="num">{counter}</span>
                             </div>
                         </div>
                     </div>
@@ -123,7 +145,7 @@
                             <strong>Wir sagen Danke!</strong>
                         </p>
                         <p>
-                            <a href="mailto:?subject=Unterstütze auch du!&body={f:uri.page(pageUid: '1', absolute: '1')}"
+                            <a href="mailto:?subject=Ich bitte um IHRE Unterstützung: TAXFREE -  Hände weg vom Sportverein!&body={f:uri.page(pageUid: '1', absolute: '1')}"
                                class="button grey">
                                 <svg class="svg icon-mail-button">
                                     <use xlink:href="#icon-mail-button"/>
@@ -139,6 +161,13 @@
                                     <use xlink:href="#icon-facebook"/>
                                 </svg>
                             </a>
+                            <a href="https://twitter.com/intent/tweet?text={f:uri.page(pageUid: '1', absolute: '1')}"
+                               onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="twitter">
+                                <svg class="svg icon-twitter">
+                                    <use xlink:href="#icon-twitter"/>
+                                </svg>
+                            </a>
                             <a href="https://plus.google.com/share?url={f:uri.page(pageUid: '1', absolute: '1')}"
                                class="googleplus" onclick="javascript:window.open(this.href,
   '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
@@ -146,7 +175,15 @@
                                     <use xlink:href="#icon-googleplus"/>
                                 </svg>
                             </a>
-                            <a href="whatsapp://send?text={f:uri.page(pageUid: '1', absolute: '1')}" class="whatsapp">
+                            <a href="https://web.whatsapp.com/send?text={f:uri.page(pageUid: '1', absolute: '1')}"
+                               class="whatsapp desktop" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                                <svg class="svg icon-whatsapp">
+                                    <use xlink:href="#icon-whatsapp"/>
+                                </svg>
+                            </a>
+                            <a href="whatsapp://send?text={f:uri.page(pageUid: '1', absolute: '1')}"
+                               class="whatsapp mobile" >
                                 <svg class="svg icon-whatsapp">
                                     <use xlink:href="#icon-whatsapp"/>
                                 </svg>
@@ -169,20 +206,10 @@
             </f:form>
         </div>
         <div class="p-supporters">
-            <h2><strong class="count">{petition.count}</strong> Unterstützer</h2>
-            <table class="supporter-list">
-                <f:for each="{supporters}" as="supporter">
-                <tr class="sl-item">
-                    <th>{supporter.data.uid}</th>
-                    <td>{supporter.data.firstName}</td>
-                    <td>{supporter.data.date}</td>
-                </tr>
-                </f:for>
-            </table>
+            <h2><strong class="count">{counter}</strong> Unterstützer</h2>
+            <div class="supporter-list"
+                 data-ajax="{f:uri.action(action: 'list', pageType: '666') -> f:format.raw()}"></div>
         </div>
-        <script>
-            var url = {f:uri.action(action: 'list', pageType: '666', absolute: '1') -> f:format.raw()};
-        </script>
     </div>
 </f:section>
 </html>
