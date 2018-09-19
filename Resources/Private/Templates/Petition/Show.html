@@ -98,18 +98,18 @@
                         </div>
                         <p>Sagen Sie es weiter!</p>
                     </div>
-                    <div class="progress-bar">
+                    <div class="progress-bar" id="progressbar">
                         <div class="legend">
                             <span class="min">0</span>
                             <span class="max">25.000</span>
                         </div>
-                        <div class="bar" data-min="0" data-max="{petition.total}" data-count="{petition.count}">
+                        <div class="bar" data-min="0" data-max="{petition.total}" data-count="{counter}">
                             <div class="progress"></div>
                             <div class="count">
                                 <svg class="svg icon-balken">
                                     <use xlink:href="#icon-balken"/>
                                 </svg>
-                                <span class="num">{petition.count}</span>
+                                <span class="num">{counter}</span>
                             </div>
                         </div>
                     </div>
@@ -184,7 +184,7 @@
             </f:form>
         </div>
         <div class="p-supporters">
-            <h2><strong class="count">{petition.count}</strong> Unterstützer</h2>
+            <h2><strong class="count">{counter}</strong> Unterstützer</h2>
             <div class="supporter-list"
                  data-ajax="{f:uri.action(action: 'list', pageType: '666') -> f:format.raw()}"></div>
         </div>

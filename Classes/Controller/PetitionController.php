@@ -40,6 +40,7 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $uid = $this->settings["petition"];
         $this->view->assign('petition', $this->petitionRepository->findByUid($uid));
         $this->view->assign('new', new Participant);
+        $this->view->assign('counter',$this->participantRepository->findSorted()->count());
     }
 
     /**
