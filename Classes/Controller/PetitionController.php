@@ -56,6 +56,16 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         if (!$user->getDisable()) return "bereits aktiviert";
         $this->view->assign("participant", $user);
         $user->setDisable(false);
+
+        // count up
+        $pet = $user->getPetition();
+        $nr = $pet->getCount() + 1;
+        $pet->setCount($nr);
+        $user->setDate(new \Datetime);
+        $user->setNumber($nr);
+
+        // save
+        $this->petitionRepository->update($pet);
         $this->participantRepository->update($user);
     }
 
@@ -80,9 +90,8 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function createAction(\Dnilabs\DnilabsPetition\Domain\Model\Participant $new)
     {
-        //check if email is already in use
+        // check if email is already in use
         if ($this->participantRepository->checkEmail($new->getEmail())) {
-            //redirect to homepage
             return $this->redirect('show', null, null, ['duplicateemail' => true]);
         }
 
@@ -93,19 +102,11 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         // set attributes
         $new->addUsergroup($usergroup);
         $new->setDisable(true);
-        $new->setDate(new \Datetime);
         $new->setUsername(md5(time()));
         $new->setPassword("8oHb^2qBjE/z),+L8oHb^2qBjE/z),+L");
 
-        // count up
-        $pet = $new->getPetition();
-        $nr = $pet->getCount() + 1;
-        $pet->setCount($nr);
-        $new->setNumber($nr);
-
         // save
         $this->participantRepository->add($new);
-        $this->petitionRepository->update($pet);
 
         // send activation email
         $to = [$new->getEmail()];
