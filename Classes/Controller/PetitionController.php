@@ -49,8 +49,7 @@ class PetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     {
         $token = GU::_GET('uniquehash');
         if (!$token) return "kein token";
-        $user = $this->participantRepository->findOneByUsername($token);
-        /* echo $user->getUsername(); */
+        $user = $this->participantRepository->findMyUser($token);
         if (!$user) return "token nicht gefunden";
         if (!$user->getDisable()) return "bereits aktiviert";
         $this->view->assign("participant", $user);

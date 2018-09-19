@@ -1,18 +1,19 @@
 <?php
 
 namespace Dnilabs\DnilabsPetition\Domain\Repository;
-class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class ParticipantRepository extends \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
 {
 
     protected $defaultOrderings = array(
         'number' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
     );
 
-    public function findOneByUsername($name)
+    public function findMyUser($username)
     {
         $query = $this->createQuery();
+        $query->getQuerySettings()->setIgnoreEnableFields(true);
         $query->matching(
-            $query->equals("username", $name)
+            $query->equals("username", $username)
         );
         return $query->setLimit(1)->execute()->getFirst();
     }
