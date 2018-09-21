@@ -1,8 +1,11 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-	<f:layout name="Default" />
-	<f:section name="content">
-    <f:debug>{_all}</f:debug>
-    <h1>aktiviert!</h1>
-    <h1>{participant.firstName}</h1>
-	</f:section>
+<f:layout name="Default"/>
+<f:section name="content">
+    <div class="frame-type-header">
+        <header>
+            <h2 class="text-center">Vielen Dank</h2>
+            <h3 class="text-center">für Ihre Unterstützung {participant.firstName}!</h3>
+        </header>
+    </div>
+</f:section>
 </html>

@@ -52,8 +52,7 @@
                     </div>
                     <div class="p-input checkbox">
                         <input type="checkbox" id="datenschutz" required>
-                        <label for="datenschutz">* Datenschutzerklärung, ipsum dolor sit amet, consectetur adipisicing
-                            elit, sed do eiusmod tempor incididunt ut et dolore.</label>
+                        <label for="datenschutz">* Ich habe die <f:link.page pageUid="62" target="_blank">Datenschutzerklärung</f:link.page> gelesen und akzeptiere diese.</label>
                     </div>
                     <div class="p-input checkbox">
                         <f:form.checkbox property="newsletter" value="1" id="newsletter"/>
@@ -119,13 +118,13 @@
                             <span class="min">0</span>
                             <span class="max">25.000</span>
                         </div>
-                        <div class="bar" data-min="0" data-max="{petition.total}" data-count="{counter}">
+                        <div class="bar" data-min="0" data-max="{petition.total}" data-count="{petition.count}">
                             <div class="progress"></div>
                             <div class="count">
                                 <svg class="svg icon-balken">
                                     <use xlink:href="#icon-balken"/>
                                 </svg>
-                                <span class="num">{counter}</span>
+                                <span class="num">{petition.count}</span>
                             </div>
                         </div>
                     </div>
@@ -206,7 +205,7 @@
             </f:form>
         </div>
         <div class="p-supporters">
-            <h2><strong class="count">{counter}</strong> Unterstützer</h2>
+            <h2><strong class="count">{petition.count}</strong> Unterstützer</h2>
             <div class="supporter-list"
                  data-ajax="{f:uri.action(action: 'list', pageType: '666') -> f:format.raw()}"></div>
         </div>
