@@ -44,7 +44,7 @@ CREATE TABLE tx_dnilabspetition_domain_model_petition (
 # Table structure for table 'tx_dnilabspetition_domain_model_participant'
 #
 CREATE TABLE fe_users (
-	number varchar(255) DEFAULT '' NOT NULL,
+	number int(11) DEFAULT '0' NOT NULL,
 	date datetime DEFAULT NULL,
 	newsletter smallint(5) unsigned DEFAULT '0' NOT NULL,
 	petition int(11) unsigned DEFAULT '0',
