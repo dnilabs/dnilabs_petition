@@ -1,6 +1,12 @@
 <?php
 defined('TYPO3_MODE') || die('Access denied.');
 
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Dnilabs\DnilabsPetition\Task\CleverreachSyncTask'] = array(
+ 'extension' => $_EXTKEY,
+ 'title' => 'Täglich fe_users mit Cleverreach synchronisieren',
+ 'description' => 'Dieser Task sendet einmal am Tag per REST die aktuellen Newsletter Emails zu Cleverreach.',
+);
+
 call_user_func(
   function()
   {

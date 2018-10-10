@@ -8,6 +8,19 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronten
         'number' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
     );
 
+    public function findAllExport() {
+        $query = $this->createQuery();
+        $query->matching(
+          $query->logicalAnd(
+            $query->equals("disable", false),
+            $query->equals("newsletter", true),
+            $query->equals("synced", false)
+          )
+        );
+        return $query->execute();
+    }
+
+
     public function findMyUser($username) {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);

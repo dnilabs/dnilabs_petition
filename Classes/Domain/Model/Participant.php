@@ -29,6 +29,14 @@ class Participant extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
   protected $disable = true;
 
   /**
+   * synced
+   *
+   * @var bool
+   */
+  protected $synced = false;
+
+
+  /**
    * newsletter
    *
    * @var bool
@@ -118,6 +126,24 @@ class Participant extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
   {
     $this->disable = $disable;
   }
+
+  /**
+   * @return bool $synced
+   */
+  public function getSynced()
+  {
+    return $this->synced;
+  }
+
+  /**
+   * @param bool $synced
+   * @return void
+   */
+  public function setSynced($synced)
+  {
+    $this->synced = $synced;
+  }
+
 
   /**
    * Returns the newsletter

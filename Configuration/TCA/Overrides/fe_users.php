@@ -36,6 +36,20 @@ $temp_columns = [
     ]
 
   ],
+  'synced' => [
+    'exclude' => true,
+    'label' => 'synced',
+    'config' => [
+      'type' => 'check',
+      'items' => [
+        '1' => [
+          '0' => 'LLL:EXT:lang/Resources/Private/Language/locallang_core.xlf:labels.enabled'
+        ]
+      ],
+      'default' => 0,
+    ]
+
+  ],
   'petition' => [
     'exclude' => true,
     'label' => 'LLL:EXT:dnilabs_petition/Resources/Private/Language/locallang_db.xlf:tx_dnilabspetition_domain_model_participant.petition',
@@ -51,7 +65,7 @@ $temp_columns = [
 ];
 
 
-$fields = 'number, date, newsletter, petition';
+$fields = 'number, date, newsletter, synced, petition';
 $type = "Petition";
 $namespace = 'Dnilabs\\DnilabsPetition\\Domain\\Model\\Participant';
 
